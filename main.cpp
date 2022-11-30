@@ -1,6 +1,6 @@
 #include "pch.h"
 
-bool file_exist(const std::string& path)
+bool FileExist(const std::string& path)
 {
 	std::ifstream f(path);
 	return f.good();
@@ -51,7 +51,7 @@ int main(int argc, char* argv[])
 		filePath = fileDialog.first;
 	}
 
-	if (!file_exist(filePath))
+	if (!FileExist(filePath))
 	{
 		std::cout << "ERROR: file " << filePath << " does not exist." << std::endl;
 		std::system("pause");
@@ -72,7 +72,7 @@ int main(int argc, char* argv[])
 	file.close();
 
 	// Pattern taken from godot-3.5.1-stable.
-	auto keyPtr = CMemory(mappedFile).FindPatternSelf("48 8D 05 ? ? ? ? 0F B6 0C 03", CMemory::Direction::DOWN, size).ResolveRelativeAddressSelf(0x3, 0x7).RCast<std::uint8_t*>();
+	std::uint8_t* keyPtr = CMemory(mappedFile).FindPatternSelf("48 8D 05 ? ? ? ? 0F B6 0C 03", CMemory::Direction::DOWN, size).ResolveRelativeAddressSelf(0x3, 0x7).RCast<std::uint8_t*>();
 
 	for (int i = 0; i < 32; i++)
 	{
